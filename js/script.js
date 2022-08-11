@@ -3,8 +3,7 @@ const itemsTotal = document.createElement('div');
 
 fetch('http://localhost:3000/api/products')
   .then((response) => response.json())
-  .then((data) => {
-    return canapeDisplay(data),addProducts(data);
+  .then((data) => {return canapeDisplay(data),addProducts(data);
   })
   //Fonction pour l'affichage de mes éléments de l'objet API
   .catch(function (error) {

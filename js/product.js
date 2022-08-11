@@ -58,15 +58,11 @@ boutonAddArticles.addEventListener('click', (event) => {
   textChang.style.overflow = 'visible';
   boutonAddArticles.style.fontWeight = 'bold';
 
-
   if (quantity.value > 0 && colorChoose.value !== null) {
-  boutonAddArticles.innerHTML = 'Produit Ajouté Au Panier';
-}  else
-{
+    boutonAddArticles.innerHTML = 'Produit Ajouté Au Panier';
+  } else {
     boutonAddArticles.innerHTML = 'Aucun Produit';
-
   }
-
 
   fetch(`http://localhost:3000/api/products/${idProduit}`)
     .then((response) => response.json())
@@ -111,7 +107,5 @@ const articleSelect = (article) => {
     produitTableau.push(article);
     localStorage.setItem('idProduit', JSON.stringify(produitTableau));
     console.log(produitTableau);
-
-
   }
 };

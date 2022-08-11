@@ -1,16 +1,26 @@
 // Récupération de mon canapé via son id dans le FETCH
 const cart = JSON.parse(localStorage.idProduit) || [];
-let section = document.getElementById('cart__items');
+const section = document.getElementById('cart__items');
 console.log(cart);
+console.log(section);
 
 for (product of cart) {
   fetch(`http://localhost:3000/api/products/${product.id}`)
     .then((response) => response.json())
     .then((canapeSelect) => {
-      // console.log(product);
-      // console.log(canapeSelect);
-      // function panierDisplay () {
-      section.innerHTML += `
+      displayCanapeSelect(canapeSelect);
+    })
+    .catch(function (error) {
+      alert(error);
+    });
+  console.log(product);
+}
+
+function displayCanapeSelect(canapeSelect) {
+  console.log(canapeSelect);
+  displayTotalQuantite();
+  displayTotalPrice(canapeSelect);
+  section.innerHTML += `
     <article class="cart__item" data-id="${product.id}" data-color="${product.color}">
     <div class="cart__item__img">
       <img src='${canapeSelect.imageUrl}' alt="Photographie d'un canapé">
@@ -19,7 +29,7 @@ for (product of cart) {
       <div class="cart__item__content__descriptio
       n">
         <h2>${canapeSelect.name}</h2>
-        <p>${canapeSelect.price}</p> 
+        <p>${product.color}</p> 
         <p>${canapeSelect.price}</p>
       </div>
       <div class="cart__item__content__settings">
@@ -35,10 +45,25 @@ for (product of cart) {
   </article> 
 
     `;
-  })
 }
 
+function displayTotalQuantite() {
+  const totalQuantity = document.querySelector('#totalQuantity');
+  const initialValue = 0;
+  const total = cart.reduce(
+    (total, item) => total + item.quantity,
+    initialValue
+  );
+  totalQuantity.textContent = total;
+}
 
-// function displayArticle() {
-//   for 
-// }
+function displayTotalPrice(canapeSelect) {
+  const totalPrice = document.querySelector('#totalPrice');
+  const initialValue = 0;
+  const total = cart.reduce(
+    (total, item) => total + canapeSelect.price * item.quantity,
+    initialValue
+  );
+  totalPrice.textContent = total;
+}
+
